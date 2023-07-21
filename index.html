@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Todo app</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>TODO</h1>
+    <img id="toggle-sun" class="display-sun" src="./images/icon-sun.svg" alt="sun icon">
+    <img id="toggle-moon" class="remove-moon" src="./images/icon-moon.svg" alt="moon icon">
+  </header>
+
+  <main>
+    <section>
+
+        <form id="todo-form">
+          <input id="todo-input" type="text" placeholder="Create a new ToDo..">
+        </form>
+
+        <ul id="todo-list">
+          <li class="todo-item">
+             <p class="todo-text">Todo One</p>
+            <img class="remove-icon" src="./images/icon-cross.svg" alt="cross-delete">
+          </li>
+          <li class="todo-item">
+            <p class="todo-text">Todo Two</p>
+            <img class="remove-icon" src="./images/icon-cross.svg" alt="cross-delete">
+          </li>
+          <li class="todo-item">
+            <p class="todo-text">Todo Three</p>
+            <img class="remove-icon" src="./images/icon-cross.svg" alt="cross-delete">
+          </li>
+          <li class="todo-item">
+            <p class="todo-text">Todo Four</p>
+            <img class="remove-icon" src="./images/icon-cross.svg" alt="cross-delete">
+          </li>
+          <li class="todo-item">
+            <p class="todo-text">Todo Five</p>
+            <img class="remove-icon" src="./images/icon-cross.svg" alt="cross-delete">
+          </li>
+          <li class="todo-item">
+            <p class="todo-text">Todo Six</p>
+            <img class="remove-icon" src="./images/icon-cross.svg" alt="cross-delete">
+          </li>
+
+        </ul>
+
+        <div class="controls">
+          <button id="all-btn" class="control-btn">All</button>
+          <button id="active-btn" class="control-btn">Active</button>
+          <button id="completed-btn" class="control-btn">Completed</button>
+        </div>
+
+    </section>
+  </main>
+
+  <script src="./src/script.js"></script>  
+</body>
+
+</html>

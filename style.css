@@ -1,0 +1,212 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* COLORS */
+        /* Primary */
+    --bright-blue: hsl(220, 98%, 61%);
+
+        /* Light Theme */
+    --very-light-gray: hsl(0, 0%, 98%);
+    --very-light-grayish-blue: hsl(236, 33%, 92%);
+    --light-grayish-blue: hsl(233, 11%, 84%);
+    --dark-grayish-blue: hsl(236, 9%, 61%);
+    --very-dark-grayish-blue: hsl(235, 19%, 35%);
+
+        /* Dark Theme */
+    --very-dark-blue: hsl(235, 21%, 11%);
+    --very-dark-desaturated-blue: hsl(235, 24%, 19%);
+    --light-grayish-blue: hsl(234, 39%, 85%);
+    --Light-grayish-blue: hsl(236, 33%, 92%);
+    --dark-grayish-blue: hsl(234, 11%, 52%);
+    --very-dark-grayish-blue: hsl(233, 14%, 35%);
+    --very-dark-grayish-blue-2: hsl(237, 14%, 26%);
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    background-color: var(--very-dark-blue);
+}
+
+body::before {
+    content: '';
+    display: block;
+    background-image: URL(./images/bg-mobile-dark.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    grid-row: 1;
+}
+
+.light-mode::before {
+    content: '';
+    display: block;
+    background-image: URL(./images/bg-mobile-light.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    grid-row: 1;
+}
+
+.light-mode-large::before {
+    content: '';
+    display: block;
+    background-image: URL(./images/bg-desktop-light.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    grid-row: 1;
+}
+
+/* HEADER SECTION */
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 340px;
+    position: absolute;
+    margin-top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+header h1 {
+    color: white;
+    letter-spacing: 6px;
+    font-weight: 400;
+}
+
+header img {
+    height: 100%;
+    align-self: center;
+    cursor: pointer;
+}
+
+/* TODO SECTION */
+main {
+    width: 340px;
+    position: absolute;
+    margin-top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* TODO Input */
+#todo-input {
+    background-color: var(--very-dark-grayish-blue-2);
+    border: none;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    background-image: radial-gradient(circle, #808080 50%, transparent 50%);
+    background-size: 18px 18px;
+    background-position: 5px 12px;
+    background-repeat: no-repeat;
+    padding: 0 30px;
+}
+
+#todo-input:focus {
+    outline: none;
+}
+
+/* TODO ITEM */
+#todo-list {
+    margin-top: 20px;
+}
+
+.todo-item, .controls {
+    color: var(--dark-grayish-blue);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--very-dark-grayish-blue-2);
+    border: none;
+    width: 100%;
+    height: 50px;
+    background-image: radial-gradient(circle, #808080 50%, transparent 50%);
+    background-size: 18px 18px;
+    background-position: 5px 16px;
+    background-repeat: no-repeat;
+    padding: 0 30px;
+}
+
+.todo-item:first-child {
+    border-radius: 5px 5px 0 0;
+}
+
+.todo-item:last-child {
+    border-radius: 0 0 5px 5px;
+} 
+
+.light-mode-item {
+    background-color: white;
+    background-image: radial-gradient(circle, #808080 50%, transparent 50%);
+}
+
+.controls {
+    margin-top: 20px;
+    height: 40px;
+    background-image: none;
+    border-radius: 5px;
+}
+
+.control-btn {
+    color: var(--dark-grayish-blue);
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.control-btn:hover {
+    color: var(--bright-blue);
+}
+
+.remove-icon {
+    cursor: pointer;
+}
+
+/* DARK / LIGHT TOGGLE */
+.display-sun {
+    display: block;
+}
+
+.remove-sun {
+    display: none;
+}
+
+.display-moon {
+    display: block;
+}
+
+.remove-moon {
+    display: none;
+}
+
+
+
+@media screen and (min-width: 500px) {
+
+    body::before {
+        background-image: URL(./images/bg-desktop-dark.jpg);
+    }
+    
+}
+
+@media screen and (min-width: 900px) {
+
+    header {
+        width: 560px;
+    }
+
+    main {
+        width: 560px;
+    }
+
+}
