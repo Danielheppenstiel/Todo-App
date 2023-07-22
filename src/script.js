@@ -21,11 +21,22 @@ function addToLocalStorage(key, item) {
     localStorage.setItem(key, JSON.stringify(existingItems));
 };
 
-
 function createTodo(todo) {
     // create DOM ELEMENTS
     const li = document.createElement('li');
     li.className = 'todo-item';
+
+    const divCheck = document.createElement('div');
+    divCheck.className = 'check-mark';
+
+    const imgCheck = document.createElement('img')
+    imgCheck.src = './images/icon-check.svg';
+
+    divCheck.appendChild(imgCheck);
+
+    const divCircle = document.createElement('div');
+    divCircle.className = 'circle';
+
 
     const para = document.createElement('p');
     para.className = 'todo-text';
@@ -36,6 +47,8 @@ function createTodo(todo) {
     img.src = './images/icon-cross.svg'
 
     // Append children
+    li.appendChild(divCheck);
+    li.appendChild(divCircle);
     li.appendChild(para);
     li.appendChild(img);
 
@@ -104,11 +117,21 @@ function toggleDisplay() {
 
 };
 
-function removeTodo(e) {
+function interactTodo(e) {
+
     const target = e.target;
 
     if (target.classList.contains('remove-icon')) {
         target.parentElement.remove();
+    } else if (target.classList.contains('circle')) {
+        target.parentElement.classList.add('checked-todo');
+        target.previousElementSibling.style.display = 'block';
+        addToLocalStorage('completed', target.parentElement.children[2].innerText);
+        setTimeout(() => {
+            target.parentElement.remove();
+        }, 2000);
+    } else {
+        return;
     }
 
 };
@@ -120,7 +143,7 @@ todoForm.addEventListener('submit', addTodo);
 sunIcon.addEventListener('click', toggleDisplay);
 moonIcon.addEventListener('click', toggleDisplay);
 
-todoList.addEventListener('click', removeTodo);
+todoList.addEventListener('click', interactTodo);
 
 
 
