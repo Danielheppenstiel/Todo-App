@@ -116,6 +116,12 @@ main {
     outline: none;
 }
 
+.input-light-mode {
+    color: black !important;
+    background-color: white !important;
+    background-image: radial-gradient(circle, hsl(233, 11%, 84%), transparent 50%) !important;
+}
+
 /* TODO ITEM */
 #todo-list {
     margin-top: 20px;
@@ -147,7 +153,7 @@ main {
 
 .light-mode-item {
     background-color: white;
-    background-image: radial-gradient(circle, #808080 50%, transparent 50%);
+    background-image: radial-gradient(circle, hsl(233, 11%, 84%), transparent 50%); 
 }
 
 .controls {

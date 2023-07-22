@@ -11,8 +11,17 @@ var sunIcon = document.getElementById('toggle-sun');
 var moonIcon = document.getElementById('toggle-moon');
 
 
-
 // Functions
+function addToLocalStorage(key, item) {
+    // check if localStorage items already exist
+    const existingItems = JSON.parse(localStorage.getItem(key)) || [];
+    // push new item to existing items array or to an empty array
+    existingItems.push(item);
+    // set all items back to local storage
+    localStorage.setItem(key, JSON.stringify(existingItems));
+};
+
+
 function createTodo(todo) {
     // create DOM ELEMENTS
     const li = document.createElement('li');
@@ -35,13 +44,13 @@ function createTodo(todo) {
 
 function addTodo(e) {
     e.preventDefault();
-
+    // create todo
     const newTodo = todoInput.value;
     const todo = createTodo(newTodo);
-
     // Add Todo to the DOM
     todoList.appendChild(todo);
-
+    // add todo to local storage
+    addToLocalStorage('all', newTodo);
 };
 
     // Toggle Display
@@ -63,6 +72,8 @@ function toggleDisplay() {
             body.classList.add('light-mode');
             body.style.backgroundColor = 'hsl(236, 33%, 92%)';
             controls.classList.add('light-mode-item');
+            todoInput.classList.add('input-light-mode');
+            
 
             todoItems.forEach(item => {
                 item.classList.add('light-mode-item');
@@ -72,6 +83,7 @@ function toggleDisplay() {
             body.classList.add('light-mode-large');
             body.style.backgroundColor = 'hsl(236, 33%, 92%)';
             controls.classList.add('light-mode-item');
+            todoInput.classList.add('input-light-mode');
 
             todoItems.forEach(item => {
                 item.classList.add('light-mode-item');
@@ -81,8 +93,8 @@ function toggleDisplay() {
             body.classList.remove('light-mode');
             body.classList.remove('light-mode-large');
             body.style.backgroundColor = 'hsl(235, 21%, 11%)';
-
             controls.classList.remove('light-mode-item');
+            todoInput.classList.remove('input-light-mode');
 
             todoItems.forEach(item => {
                 item.classList.remove('light-mode-item');
@@ -92,9 +104,27 @@ function toggleDisplay() {
 
 };
 
+function removeTodo(e) {
+    const target = e.target;
+
+    if (target.classList.contains('remove-icon')) {
+        target.parentElement.remove();
+    }
+
+};
+
 
 
 // Event Listeners
 todoForm.addEventListener('submit', addTodo);
 sunIcon.addEventListener('click', toggleDisplay);
 moonIcon.addEventListener('click', toggleDisplay);
+
+todoList.addEventListener('click', removeTodo);
+
+
+
+// LOCAL STORAGE FUNCTIONALITY
+    // 1.set items to local storage based on their keu (all, active, completed)
+    // 2. when all, active or completed is clicked, I want the corresponding todo's to be displayed
+    // 3. Be able to remove items from local storage
