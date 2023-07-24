@@ -218,6 +218,10 @@ function displayAll() {
 };
 
 function clearAll() {
+    todoList.innerHTML = '';
+    localStorage.clear();
+
+    itemCounterElement.innerText = `0 Items remaining..`
 
 };
 
