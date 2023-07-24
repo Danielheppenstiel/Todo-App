@@ -7,6 +7,7 @@ const itemCounterElement = document.querySelector('#items-left');
 const allBtn = document.getElementById('all-btn');
 const activeBtn = document.getElementById('active-btn');
 const completedBtn = document.getElementById('completed-btn');
+const clearBtn = document.getElementById('clear-all');
     // Toggle Icons
 var sunIcon = document.getElementById('toggle-sun');
 var moonIcon = document.getElementById('toggle-moon');
@@ -14,13 +15,35 @@ var moonIcon = document.getElementById('toggle-moon');
 let isDarkMode = true;
 
 // Functions
+function todoInit() {
+    // Check todo list and all existing to 'all' localStorage
+    const exisitingTodoElements = todoList.querySelectorAll('.todo-item');
+    exisitingTodoElements.forEach(todo => {
+        const todoText = todo.querySelector('.todo-text').textContent;
+        addToLocalStorage('all', todoText);
+        addToLocalStorage('active', todoText);
+    });
+    
+};
+
 function addToLocalStorage(key, item) {
     // check if localStorage items already exist
     const existingItems = JSON.parse(localStorage.getItem(key)) || [];
     // push new item to existing items array or to an empty array
-    existingItems.push(item);
+    if (!existingItems.includes(item)) {
+        existingItems.push(item);
+    } 
     // set all items back to local storage
     localStorage.setItem(key, JSON.stringify(existingItems));
+};
+
+function removeFromLocalStorage(key, itemToRemove) {
+    // get existing items from local storage
+    const existingItems = JSON.parse(localStorage.getItem(key)) || [];
+    // filter to remove item that has been deleted
+    const updatedItems = existingItems.filter(item => item !== itemToRemove);
+    // reset localstorage with updatedItems
+    localStorage.setItem(key, JSON.stringify(updatedItems));
 };
 
 function createTodo(todo) {
@@ -63,12 +86,10 @@ function createTodo(todo) {
 
 function addTodo(e) {
     e.preventDefault();
-    const currentItems = todoList.childNodes;
     // create todo
     const newTodo = todoInput.value;
     const todo = createTodo(newTodo);
     // Add Todo to the DOM
-    console.log(currentItems);
     todoList.appendChild(todo);
     // add todo to local storage
     addToLocalStorage('active', newTodo);
@@ -126,13 +147,16 @@ function toggleDisplay() {
             });
     };
     
-
 };
 
 function interactTodo(e) {
     const target = e.target;
     if (target.classList.contains('remove-icon')) {
+        const todoText = target.parentElement.querySelector('.todo-text').textContent;
         target.parentElement.remove();
+        removeFromLocalStorage('all', todoText);
+        removeFromLocalStorage('active', todoText);
+        removeFromLocalStorage('completed', todoText);
     } else if (target.classList.contains('circle')) {
         target.parentElement.classList.add('checked-todo');
         target.previousElementSibling.style.display = 'block';
@@ -145,8 +169,7 @@ function interactTodo(e) {
     };
 };
 
-
-    // Controls All Active Completed
+    // Controls All Active Completed Clear
 function displayCompleted() {
     // clear the list
     todoList.innerHTML = '';
@@ -159,8 +182,6 @@ function displayCompleted() {
     });
 
     itemCounterElement.innerText = `${completedItems.length} Items remaining..`
-
-
 };
 
 function displayActive() {
@@ -172,8 +193,6 @@ function displayActive() {
     });
 
     itemCounterElement.innerText = `${activeItems.length} Items remaining..`
-
-
 };
 
 function displayAll() {
@@ -181,18 +200,30 @@ function displayAll() {
     let allTodos = [];
     const completedItems = JSON.parse(localStorage.getItem('completed'));
     const activeItems = JSON.parse(localStorage.getItem('active'));
-    allTodos = [...activeItems, ...completedItems];
+
+    if (completedItems && activeItems) {
+        allTodos = [...activeItems, ...completedItems];
+    } else if (activeItems) {
+        allTodos = [...activeItems];
+    } else {
+        allTodos = [...completedItems];
+    };
+
     allTodos.forEach(todo => {
         const allItems = createTodo(todo);
         todoList.appendChild(allItems);
     });
 
     itemCounterElement.innerText = `${allTodos.length} Items remaining..`
+};
+
+function clearAll() {
 
 };
 
-
 // Event Listeners
+window.addEventListener('DOMContentLoaded', todoInit);
+
 todoForm.addEventListener('submit', addTodo);
 sunIcon.addEventListener('click', toggleDisplay);
 moonIcon.addEventListener('click', toggleDisplay);
@@ -201,8 +232,4 @@ todoList.addEventListener('click', interactTodo);
 completedBtn.addEventListener('click', displayCompleted);
 activeBtn.addEventListener('click', displayActive);
 allBtn.addEventListener('click', displayAll);
-
-
-
-// Check if current items are in light mode or dark mode
-// add new item based on current mode
+clearBtn.addEventListener('click', clearAll);
