@@ -208,6 +208,10 @@ main {
     position: absolute;
 }
 
+.circle:hover {
+    border: 1px solid var(--bright-blue);
+}
+
 /* Checked Todo */
 .checked-todo {
     text-decoration: line-through;
@@ -228,6 +232,10 @@ main {
     width: 10px;
     margin-left: 5px;
     margin-top: 5px;
+}
+
+#items-left {
+    color: var(--dark-grayish-blue);
 }
 
 @media screen and (min-width: 500px) {
